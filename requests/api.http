@@ -1,0 +1,188 @@
+GET http://localhost:3000/purchase
+
+###
+
+POST http://localhost:3000/purchase
+Content-Type: application/json
+
+{
+    "description": "abc",
+    "date": "2025-12-07T20:34:00",
+    "amount": 55.24,
+    "clientPurchaseId": "01a0bac8-6994-7461-a9ef-23970a7f95f0"
+}
+
+###
+
+POST http://localhost:3000/purchase
+Content-Type: application/json
+
+{
+    "description": "abc3",
+    "date": "2025-12-08T20:34:00",
+    "amount": 15.24,
+    "clientPurchaseId": "01a0bac8-6994-7461-a9ef-24a9cc88bd88"
+}
+
+###
+
+POST http://localhost:3000/purchase
+Content-Type: application/json
+
+{
+    "description": "abcef",
+    "date": "2025-12-09T20:34:00",
+    "amount": 0.24,
+    "clientPurchaseId": "01a0bac8-6994-7461-a9ef-28d92e0bfe03"
+}
+
+
+###
+
+POST http://localhost:3000/purchase
+Content-Type: application/json
+
+{
+    "description": "abcef",
+    "date": "2025-12-09T20:34:00",
+    "amount": 5,
+    "clientPurchaseId": "01a0bac8-6994-7461-a9ef-2cb4b5b74cf0"
+}
+
+###
+
+POST http://localhost:3000/purchase
+Content-Type: application/json
+
+{
+    "description": "abc3",
+    "date": "",
+    "amount": 15.24,
+    "clientPurchaseId": "01a0bac8-6994-7461-a9ef-2cb4b5b74cf0"
+}
+
+###
+
+POST http://localhost:3000/purchase
+Content-Type: application/json
+
+{
+    "description": "abcefg",
+    "date": "2025-12-09T20:34:00",
+    "amount": 5.1,
+    "clientPurchaseId": "01a0bac8-6994-7461-a9ef-2cb4b5b74cf0"
+}
+
+###
+
+POST http://localhost:3000/purchase
+Content-Type: application/json
+
+{
+    "description": "abcefg",
+    "date": "2025-12-09T20:34:00",
+    "amount": 5.1
+}
+
+###
+GET http://localhost:3000/purchase/01a0bac8-6994-7461-a9ef-2cb4b5b74cf0?currency=Fiji-Dollar
+
+
+###
+
+POST http://localhost:3000/purchase
+Content-Type: application/json
+
+{
+    "description": "abc456789012345678901234567890123456789012345678901234567890",
+    "date": "2025-12-07T20:34:00",
+    "amount": 55.24,
+    "clientPurchaseId": "01a0bac8-6994-7461-a9ef-2cb4b5b74cf0"
+}
+
+###
+
+POST http://localhost:3000/purchase
+Content-Type: application/json
+
+{
+    "description": "abc45678901234901234567890",
+    "date": "2025-12-07T20:34:00",
+    "amount": -55.24,
+    "clientPurchaseId": "01a0bac8-6994-7461-a9ef-2cb4b5b74cf0"
+}
+
+
+###
+
+POST http://localhost:3000/purchase
+Content-Type: application/json
+
+{
+    "description": "abc45678901234901234567890",
+    "date": "2025-12-07T20:34:00",
+    "amount": 55.241,
+    "clientPurchaseId": "01a0bac8-6994-7461-a9ef-2cb4b5b74cf0"
+}
+
+###
+
+POST http://localhost:3000/purchase
+Content-Type: application/json
+
+{
+    "description": "abc45678901234901234567890",
+    "date": "2025-12-07T20:34:00",
+    "amount": -55.241,
+    "clientPurchaseId": "01a0bac8-6994-7461-a9ef-2cb4b5b74cf0"
+}
+
+###
+
+POST http://localhost:3000/purchase
+Content-Type: application/json
+
+{
+    "description": "abc45678901234901234567890",
+    "date": "2025-12-07T20:34:00",
+    "amount": 57.80,
+    "clientPurchaseId": "01a0bac8-6994-7461-a9ef-2cb4b5b74cf0"
+}
+
+###
+
+POST http://localhost:3000/purchase
+Content-Type: application/json
+
+{
+    "description": "abc45678901234901234567890",
+    "date": "2025-12-07T20:34:00",
+    "amount": 57.80,
+    "clientPurchaseId": "01a0bac8-6994-7461-a9ef-2cb4b5b74cf0"
+}
+
+
+###
+
+POST http://localhost:3000/purchase
+Content-Type: application/json
+
+{
+    "description": "oldie",
+    "date": "2019-12-07T20:34:00",
+    "amount": 60.80,
+    "clientPurchaseId": "6407a1da-ac7a-47e6-aa9c-a413e4a46163"
+}
+
+###
+GET http://localhost:3000/purchase/6407a1da-ac7a-47e6-aa9c-a413e4a46163
+
+###
+GET http://localhost:3000/purchase/24
+
+
+###
+GET http://localhost:3000/purchase/6407a1da-ac7a-47e6-aa9c-a413e4a46163?currency=fiji-dollar
+
+###
+GET http://localhost:3000/purchase/24?currency=fiji-dollar

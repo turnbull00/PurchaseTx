@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  Postgres__Password: ci_test_password
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: api
+          POSTGRES_PASSWORD: ci_test_password
+          POSTGRES_DB: purchasetx
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U api -d purchasetx"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore
+        run: dotnet restore api.slnx
+
+      - name: Build
+        run: dotnet build api.slnx --no-restore --configuration Release
+
+      - name: Install dotnet-ef
+        run: |
+          dotnet tool install --global dotnet-ef
+          echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+
+      - name: Apply database migrations
+        working-directory: api
+        run: dotnet ef database update --no-build --configuration Release
+
+      - name: Test
+        run: dotnet test api.slnx --no-build --configuration Release
