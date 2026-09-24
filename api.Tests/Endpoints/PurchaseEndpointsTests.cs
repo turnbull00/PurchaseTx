@@ -111,6 +111,27 @@ public class PurchaseEndpointsTests
     }
 
     [Fact]
+    public async Task GetPurchaseById_rounds_a_half_cent_conversion_away_from_zero()
+    {
+        var repository = new FakePurchaseRepository();
+        var newPurchase = new PurchaseEndpoints.NewPurchase("Coffee", "2026-03-15T00:00:00Z", 5.00m, Guid.NewGuid());
+        var created = await PurchaseEndpoints.PostPurchases(newPurchase, repository, CancellationToken.None);
+        var createdPurchase = Assert.IsType<Microsoft.AspNetCore.Http.HttpResults.Created<Purchase>>(created.Result).Value!;
+
+        var exchangeRateStore = new ExchangeRateStore();
+        exchangeRateStore.SetRates([
+            // 5.00 * 0.025 = 0.125 exactly; Math.Round's default (ToEven) would give 0.12.
+            new ExchangeRate(new DateOnly(2026, 3, 1), "France", "Euro", "France-Euro", new DateOnly(2026, 3, 1), 0.025m),
+        ]);
+
+        var result = await PurchaseEndpoints.GetPurchaseById(
+            createdPurchase.Id.ToString(), "France-Euro", repository, exchangeRateStore, CancellationToken.None);
+
+        var ok = Assert.IsType<Microsoft.AspNetCore.Http.HttpResults.Ok<PurchaseEndpoints.PurchaseResponse>>(result.Result);
+        Assert.Equal(0.13m, ok.Value!.ConvertedAmount);
+    }
+
+    [Fact]
     public async Task GetPurchaseById_matches_currency_case_insensitively()
     {
         var repository = new FakePurchaseRepository();
