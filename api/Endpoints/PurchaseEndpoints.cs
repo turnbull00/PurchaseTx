@@ -15,7 +15,7 @@ public static class PurchaseEndpoints
     public static void MapPurchaseEndpoints(this IEndpointRouteBuilder app)
     {
         var purchases = app.MapGroup("/purchase");
-        purchases.MapGet("/", GetPurchases);
+        // purchases.MapGet("/", GetPurchases);
         purchases.MapGet("/{id}", GetPurchaseById);
 
         purchases.MapPost("/", PostPurchases).AddEndpointFilter(ValidatePurchase);
