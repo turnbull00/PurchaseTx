@@ -79,7 +79,7 @@ public static class PurchaseEndpoints
                 $"No exchange rate available for '{currency}' within 6 months before {purchaseDate:yyyy-MM-dd}.");
         }
 
-        var convertedAmount = Math.Round(purchase.Amount * rate.Rate, 2);
+        var convertedAmount = Math.Round(purchase.Amount * rate.Rate, 2, MidpointRounding.AwayFromZero);
 
         return TypedResults.Ok(new PurchaseResponse(
             purchase.Id, purchase.Description, purchase.Date, purchase.Amount, purchase.ClientPurchaseId,
